@@ -2,265 +2,381 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- tailwind css link -->
-  <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- tailwind css link -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
-  <title>MIT Solution Computer Training Institute</title>
-  <link rel="shortcut icon" href="image/mit logo.jpg" type="image/x-icon">
+    <title>MIT Solution Computer Training Institute</title>
+    <link rel="shortcut icon" href="image/mit logo.jpg" type="image/x-icon">
 
-  <!-- font link -->
+    <!-- font link -->
 
-  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
-  <style>
-    @keyframes scrollEffect {
-      0% { transform: translateY(0); }
-      50% { transform: translateY(10px); } /* down */
-      100% { transform: translateY(0); }
-    }
-  
-    .scroll-animation {
-      animation: scrollEffect 1s ease-in-out;
-    }
-  </style>
+    <style>
+        .carousel-container {
+            position: relative;
+            height: 400px;
+            overflow: hidden;
+        }
+
+        .carousel-slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transform: translateX(100%);
+            transition: transform 0.6s ease-in-out, opacity 0.6s ease-in-out;
+            z-index: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-slide.active {
+            transform: translateX(0);
+            opacity: 1;
+            z-index: 10;
+        }
+
+        .carousel-slide.prev {
+            transform: translateX(-100%);
+            z-index: 5;
+        }
+
+        .arrow-controls {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+            padding: 0 1rem;
+        }
+    </style>
 
 
 </head>
 
 <body class="bg-gray-100">
-  <nav class="relative p-5 bg-white shadow md:flex md:items-center md:justify-between">
-    <div class="flex justify-between items-center">
-      <span
-        class="text-xl sm:text-2xl md:text-4xl text-center font-semibold font-[Poppins] sm:text-left cursor-pointer">
-        <img class="h-14 inline" src="image/mit logo.jpg" alt="">
-        <a href="">MIT Solution Computer Training Institute</a>
-      </span>
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto flex items-center justify-between p-4">
 
-      <span class="text-3xl cursor-pointer mx-2 md:hidden block">
-        <ion-icon name="menu" onclick="menu(this)"></ion-icon>
-      </span>
+            <!-- Logo + Title -->
+            <div class="flex items-center space-x-3">
+                <img src="image/mit logo.jpg" alt="Logo" class="w-10 h-10">
+                <a href="#" class="text-lg font-bold text-gray-800">
+                    MIT Solution Computer Training Institute
+                </a>
+            </div>
 
+            <!-- Hamburger Icon (Mobile only) -->
+            <button id="menu-btn" class="md:hidden text-gray-700 focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center space-x-6">
+                <nav class="flex space-x-6">
+                    <a href="#" class="text-gray-700 font-bold hover:text-blue-600">Home</a>
+                    <a href="#" class="text-gray-700 font-bold hover:text-blue-600">About</a>
+                    <a href="#" class="text-gray-700 font-bold hover:text-blue-600">Course</a>
+                    <a href="#" class="text-gray-700 font-bold hover:text-blue-600">Achivement</a>
+                    <a href="#" class="text-gray-700 font-bold hover:text-blue-600">Contact</a>
+                </nav>
+                <a href="#" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
+                    Let's Go
+                </a>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden px-4 pb-4 space-y-2 transition-all duration-300">
+            <a href="#" class="block text-gray-700 hover:text-blue-600">Home</a>
+            <a href="#" class="block text-gray-700 hover:text-blue-600">About</a>
+            <a href="#" class="block text-gray-700 hover:text-blue-600">Course</a>
+            <a href="#" class="block text-gray-700 hover:text-blue-600">Achivement</a>
+            <a href="#" class="block text-gray-700 hover:text-blue-600">Contact</a>
+            <a href="#" class="block bg-blue-600 text-white text-center px-4 py-2 rounded hover:bg-blue-700">
+                Let's Go
+            </a>
+        </div>
+    </header>
+
+    <main>
+
+        <section class="px-4 py-10">
+            <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-10">
+
+                <!-- Image Section -->
+                <div class="w-full lg:w-1/2">
+                    <img id="animatedImage" src="image/mit logo.jpg"
+                        class="w-full h-auto rounded-xl shadow-md opacity-0 translate-x-[-50px] transition-all duration-1000"
+                        alt="MIT Solution Image" />
+                </div>
+
+                <!-- Text Content -->
+                <div class="w-full lg:w-1/2">
+                    <h1
+                        class="text-2xl sm:text-3xl lg:text-4xl font-[Poppins] font-semibold mb-4 text-center lg:text-left">
+                        MIT Solution Computer Training Institute
+                    </h1>
+                    <p class="text-sm sm:text-base text-gray-700 text-justify px-2 lg:px-0 leading-relaxed">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro tempora sit illum, dignissimos
+                        veniam vitae,
+                        fugiat odit assumenda cupiditate cum debitis a provident soluta nesciunt error quasi in
+                        perferendis minus
+                        repellat. Eos architecto eaque, a quia deleniti hic adipisci accusantium qui aspernatur,
+                        voluptas, odit
+                        voluptatum! Tenetur provident eos voluptate aut.
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="courses">
+  <h1 class="text-4xl font-[Poppins] text-center">Our Courses</h1>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 py-10 px-4 bg-gray-200">
+    <!-- Card 1 -->
+    <div class="card opacity-0 translate-y-10 transition-all duration-700 bg-base-100 w-full max-w-md mx-auto shadow-sm">
+      <figure>
+        <img src="image/office icon.png" alt="office icon" class="w-full h-auto" />
+      </figure>
+      <div class="card-body">
+        <h2 class="card-title">Office Application</h2>
+        <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
+        <div class="card-actions justify-end">
+          <button class="bg-blue-500 text-white font-[Poppins] duration-500 px-6 py-2 hover:bg-blue-600 rounded">Learn more</button>
+        </div>
+      </div>
     </div>
-    <ul id="menuList"
-      class="md:flex md:items-center z-[999] md:z-auto md:static absolute bg-white w-full left-0 md:w-auto md:py-0 py-5 md:pl-0 pl-7 md:opacity-100 opacity-0 top-[-400px] max-h-0 overflow-hidden md:max-h-full transition-all ease-in-out duration-500">
 
-      <li class="mx-4">
-        <a href="#" class="text-xl font-[Poppins] hover:text-cyan-500 duration-100">Home</a>
-      </li>
-      <li class="mx-4 my-10 md:my-0">
-        <a href="#" class="text-xl font-[Poppins] hover:text-cyan-500 duration-100">About</a>
-      </li>
-      <li class="mx-4 my-10 md:my-0">
-        <a href="#" class="text-xl font-[Poppins] hover:text-cyan-500 duration-100">Course</a>
-      </li>
-      <li class="mx-4 my-10 md:my-0">
-        <a href="contact" class="text-xl font-[Poppins] hover:text-cyan-500 duration-100">Contact</a>
-      </li>
-      <li class="mx-4 my-10 md:my-0">
-        <a href="#" class="text-xl font-[Poppins] hover:text-cyan-500 duration-100">Blog</a>
-      </li>
-
-      <button class="bg-cyan-400 text-white font-[Poppins] duration-500 px-3 py-1 mx-2 hover:bg-cyan-500 rounded">
-        <a href="" class="font-lg">Let's Talk</a>
-      </button>
-    </ul>
-  </nav>
-
-  <main>
-
-    <section class="px-4 py-10">
-      <div class="flex flex-col lg:flex-row items-center justify-center gap-8">
-
-        <!-- Image Section -->
-        <div class="w-full lg:w-1/2">
-          <img src="image/mit logo.jpg" class="w-full h-auto rounded-xl" alt="MIT Solution Image">
-        </div>
-
-        <!-- Text Content -->
-        <div class="w-full lg:w-1/2">
-          <h1 class="text-2xl md:text-3xl lg:text-4xl font-[Poppins] font-semibold mb-4 text-center lg:text-left">
-            MIT Solution Computer Training Institute
-          </h1>
-          <p class="text-base text-gray-700 text-justify px-2 lg:px-0">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Porro tempora sit illum, dignissimos veniam vitae,
-            fugiat odit assumenda cupiditate cum debitis a provident soluta nesciunt error quasi in perferendis minus
-            repellat. Eos architecto eaque, a quia deleniti hic adipisci accusantium qui aspernatur, voluptas, odit
-            voluptatum! Tenetur provident eos voluptate aut.
-          </p>
-        </div>
-
-      </div>
-    </section>
-
-
-
-    <section>
-      <h1 class="text-4xl font-[Poppins] text-center">Our Courses</h1>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 py-10 px-4 bg-gray-200">
-        <!-- Card 1 -->
-        <div class="card bg-base-100 w-full max-w-md mx-auto shadow-sm">
-          <figure>
-            <img src="image/office icon.png" alt="office icon" class="w-full h-auto" />
-          </figure>
-          <div class="card-body">
-            <h2 class="card-title">Office Application</h2>
-            <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
-            <div class="card-actions justify-end">
-              <button
-                class="bg-blue-500 text-white font-[Poppins] duration-500 px-6 py-2 hover:bg-blue-600 rounded">Learn
-                more</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Card 2 -->
-        <div class="card bg-base-100 w-full max-w-md mx-auto shadow-sm">
-          <figure>
-            <img src="image/graphic image.jpg" alt="graphic icon" class="w-full h-auto" />
-          </figure>
-          <div class="card-body">
-            <h2 class="card-title">Graphic Design</h2>
-            <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
-            <div class="card-actions justify-end">
-              <button
-                class="bg-blue-500 text-white font-[Poppins] duration-500 px-6 py-2 hover:bg-blue-600 rounded">Learn
-                more</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Card 3 -->
-        <div class="card bg-base-100 w-full max-w-md mx-auto shadow-sm">
-          <figure>
-            <img src="image/web imsge.jpg" alt="web design icon" class="w-full h-auto" />
-          </figure>
-          <div class="card-body">
-            <h2 class="card-title">Web Development</h2>
-            <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
-            <div class="card-actions justify-end">
-              <button
-                class="bg-blue-500 text-white font-[Poppins] duration-500 px-6 py-2 hover:bg-blue-600 rounded">Learn
-                more</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Card 4 -->
-        <div class="card bg-base-100 w-full max-w-md mx-auto shadow-sm">
-          <figure>
-            <img src="image/digital marketing icon.jpg" alt="digital marketing icon" class="w-full h-auto" />
-          </figure>
-          <div class="card-body">
-            <h2 class="card-title">Digital Marketing</h2>
-            <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
-            <div class="card-actions justify-end">
-              <button
-                class="bg-blue-500 text-white font-[Poppins] duration-500 px-6 py-2 hover:bg-blue-600 rounded">Learn
-                more</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Card 5 -->
-        <div class="card bg-base-100 w-full max-w-md mx-auto shadow-sm">
-          <figure>
-            <img src="image/freelanching icon.jpg" alt="freelancing icon" class="w-full h-auto" />
-          </figure>
-          <div class="card-body">
-            <h2 class="card-title">Freelancer Marketplace</h2>
-            <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
-            <div class="card-actions justify-end">
-              <button
-                class="bg-blue-500 text-white font-[Poppins] duration-500 px-6 py-2 hover:bg-blue-600 rounded">Learn
-                more</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Card 6 -->
-        <div class="card bg-base-100 w-full max-w-md mx-auto shadow-sm">
-          <figure>
-            <img src="image/computer hardware .jpg" alt="computer hardware icon" class="w-full h-[400px]" />
-          </figure>
-          <div class="card-body">
-            <h2 class="card-title">Computer Hardware</h2>
-            <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
-            <div class="card-actions justify-end">
-              <button
-                class="bg-blue-500 text-white font-[Poppins] duration-500 px-6 py-2 hover:bg-blue-600 rounded">Learn
-                more</button>
-            </div>
-          </div>
+    <!-- Card 2 -->
+    <div class="card opacity-0 translate-y-10 transition-all duration-700 bg-base-100 w-full max-w-md mx-auto shadow-sm">
+      <figure>
+        <img src="image/graphic image.jpg" alt="graphic icon" class="w-full h-auto" />
+      </figure>
+      <div class="card-body">
+        <h2 class="card-title">Graphic Design</h2>
+        <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
+        <div class="card-actions justify-end">
+          <button class="bg-blue-500 text-white font-[Poppins] duration-500 px-6 py-2 hover:bg-blue-600 rounded">Learn more</button>
         </div>
       </div>
-    </section>
+    </div>
 
-
-
-
-
-    <section id="contact" class="flex flex-col md:flex-row items-start justify-around mt-20 px-4 py-20 gap-8">
-      <div class="contact-form bg-white rounded-xl p-10 w-full md:w-fuill">
-        <h2 class="text-2xl font-bold mb-6 text-gray-800 ">Let's Work Together</h2>
-        <form action="#" method="post" enctype="multipart/form-data" class="flex flex-col space-y-4">
-          <input type="text" id="name" name="name" placeholder="Your Name*" required
-            class="w-full p-4 rounded-md bg-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white">
-          <input type="email" id="email" name="email" placeholder="Your Email*" required
-            class="w-full p-4 rounded-md bg-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white">
-          <input type="tel" id="number" name="number" placeholder="Your Contact Number*" required
-            class="w-full p-4 rounded-md bg-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white">
-          <input type="text" id="subject" name="subject" placeholder="Write Your Subject*" required
-            class="w-full p-4 rounded-md bg-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white">
-          <input type="file" id="file" name="file" required
-            class="w-full p-4 rounded-md bg-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white">
-          <textarea name="message" id="message" rows="5" placeholder="Write Your Message*" required
-            class="w-full p-4 rounded-md bg-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white"></textarea>
-          <button type="submit"
-            class="bg-blue-600 text-white font-semibold py-3 px-6 rounded-md hover:bg-orange-600 transition duration-300">Send
-            Message</button>
-        </form>
-      </div>
-    </section>
-
-    <section>
-      <h1 class="text-4xl font-[Poppins] text-center">Our Students</h1>
-      
-
-      <div class="w-full max-w-screen-xl mx-auto px-4">
-        <div class="relative w-full overflow-hidden" id="custom-carousel">
-          <div class="carousel-item w-full hidden" id="slide1">
-            <img src="image/class 1.jpg" class="carousel-img w-full object-cover h-64 md:h-96" />
-          </div>
-          <div class="carousel-item w-full hidden" id="slide2">
-            <img src="image/class 2.jpg" class="carousel-img w-full object-cover h-64 md:h-96" />
-          </div>
-          <div class="carousel-item w-full hidden" id="slide3">
-            <img src="image/class 3.jpg" class="carousel-img w-full object-cover h-64 md:h-96" />
-          </div>
-          <div class="carousel-item w-full hidden" id="slide4">
-            <img src="image/class 4.jpg" class="carousel-img w-full object-cover h-64 md:h-96" />
-          </div>
-      
-          <!-- Nav Buttons -->
-          <div class="absolute left-5 right-5 top-1/2 flex justify-between transform -translate-y-1/2">
-            <button onclick="prevSlide()" class="btn btn-circle">❮</button>
-            <button onclick="nextSlide()" class="btn btn-circle">❯</button>
-          </div>
+    <!-- Card 3 -->
+    <div class="card opacity-0 translate-y-10 transition-all duration-700 bg-base-100 w-full max-w-md mx-auto shadow-sm">
+      <figure>
+        <img src="image/web imsge.jpg" alt="web design icon" class="w-full h-auto" />
+      </figure>
+      <div class="card-body">
+        <h2 class="card-title">Web Development</h2>
+        <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
+        <div class="card-actions justify-end">
+          <button class="bg-blue-500 text-white font-[Poppins] duration-500 px-6 py-2 hover:bg-blue-600 rounded">Learn more</button>
         </div>
-      </div>  
-    </section>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="card opacity-0 translate-y-10 transition-all duration-700 bg-base-100 w-full max-w-md mx-auto shadow-sm">
+      <figure>
+        <img src="image/digital marketing icon.jpg" alt="digital marketing icon" class="w-full h-auto" />
+      </figure>
+      <div class="card-body">
+        <h2 class="card-title">Digital Marketing</h2>
+        <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
+        <div class="card-actions justify-end">
+          <button class="bg-blue-500 text-white font-[Poppins] duration-500 px-6 py-2 hover:bg-blue-600 rounded">Learn more</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 5 -->
+    <div class="card opacity-0 translate-y-10 transition-all duration-700 bg-base-100 w-full max-w-md mx-auto shadow-sm">
+      <figure>
+        <img src="image/video editing pro icon.jpeg" alt="video editing pro icon" class="w-full h-auto" />
+      </figure>
+      <div class="card-body">
+        <h2 class="card-title">Video Editing Pro</h2>
+        <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
+        <div class="card-actions justify-end">
+          <button class="bg-blue-500 text-white font-[Poppins] duration-500 px-6 py-2 hover:bg-blue-600 rounded">Learn more</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 6 -->
+    <div class="card opacity-0 translate-y-10 transition-all duration-700 bg-base-100 w-full max-w-md mx-auto shadow-sm">
+      <figure>
+        <img src="image/computer hardware .jpg" alt="computer hardware icon" class="w-full h-[400px]" />
+      </figure>
+      <div class="card-body">
+        <h2 class="card-title">Computer Hardware</h2>
+        <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
+        <div class="card-actions justify-end">
+          <button class="bg-blue-500 text-white font-[Poppins] duration-500 px-6 py-2 hover:bg-blue-600 rounded">Learn more</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+        <section id="contact" class="flex flex-col md:flex-row items-start justify-around mt-20 px-4 py-20 gap-8">
+            <div class="contact-form bg-white rounded-xl p-10 w-full md:w-fuill">
+                <h2 class="text-2xl font-bold mb-6 text-gray-800 ">Let's Work Together</h2>
+                <form action="#" method="post" enctype="multipart/form-data" class="flex flex-col space-y-4">
+                    <input type="text" id="name" name="name" placeholder="Your Name*" required
+                        class="w-full p-4 rounded-md bg-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white">
+                    <input type="email" id="email" name="email" placeholder="Your Email*" required
+                        class="w-full p-4 rounded-md bg-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white">
+                    <input type="tel" id="number" name="number" placeholder="Your Contact Number*" required
+                        class="w-full p-4 rounded-md bg-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white">
+                    <input type="text" id="subject" name="subject" placeholder="Write Your Subject*" required
+                        class="w-full p-4 rounded-md bg-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white">
+                    <input type="file" id="file" name="file" required
+                        class="w-full p-4 rounded-md bg-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white">
+                    <textarea name="message" id="message" rows="5" placeholder="Write Your Message*" required
+                        class="w-full p-4 rounded-md bg-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white"></textarea>
+                    <button type="submit"
+                        class="bg-blue-600 text-white font-semibold py-3 px-6 rounded-md hover:bg-orange-600 transition duration-300">Send
+                        Message</button>
+                </form>
+            </div>
+        </section>
+
+        <section>
+            <h1 class="text-4xl font-[Poppins] text-center">Our Students</h1>
+
+            <div class="w-full max-w-screen-xl mx-auto px-4">
+                <div class="carousel-container" id="my-carousel">
+                    <div class="carousel-slide active">
+                        <img src="image/class 5.jpg" class="w-full h-full object-cover" />
+                        <div class="arrow-controls">
+                            <button onclick="prevSlide()" class="btn btn-circle bg-white text-black">❮</button>
+                            <button onclick="nextSlide()" class="btn btn-circle bg-white text-black">❯</button>
+                        </div>
+                    </div>
+
+                    <div class="carousel-slide">
+                        <img src="image/class 8.jpg" class="w-full h-full object-cover" />
+                        <div class="arrow-controls">
+                            <button onclick="prevSlide()" class="btn btn-circle bg-white text-black">❮</button>
+                            <button onclick="nextSlide()" class="btn btn-circle bg-white text-black">❯</button>
+                        </div>
+                    </div>
+
+                    <div class="carousel-slide">
+                        <img src="image/class 15.jpg" class="w-full h-full object-cover" />
+                        <div class="arrow-controls">
+                            <button onclick="prevSlide()" class="btn btn-circle bg-white text-black">❮</button>
+                            <button onclick="nextSlide()" class="btn btn-circle bg-white text-black">❯</button>
+                        </div>
+                    </div>
+
+                    <div class="carousel-slide">
+                        <img src="image/class 7.jpg" class="w-full h-full object-cover" />
+                        <div class="arrow-controls">
+                            <button onclick="prevSlide()" class="btn btn-circle bg-white text-black">❮</button>
+                            <button onclick="nextSlide()" class="btn btn-circle bg-white text-black">❯</button>
+                        </div>
+                    </div>
+
+                    <div class="carousel-slide">
+                        <img src="image/class 3.jpg" class="w-full h-full object-cover" />
+                        <div class="arrow-controls">
+                            <button onclick="prevSlide()" class="btn btn-circle bg-white text-black">❮</button>
+                            <button onclick="nextSlide()" class="btn btn-circle bg-white text-black">❯</button>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="image/class 2.jpg" class="w-full h-full object-cover" />
+                        <div class="arrow-controls">
+                            <button onclick="prevSlide()" class="btn btn-circle bg-white text-black">❮</button>
+                            <button onclick="nextSlide()" class="btn btn-circle bg-white text-black">❯</button>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="image/class 6.jpg" class="w-full h-full object-cover" />
+                        <div class="arrow-controls">
+                            <button onclick="prevSlide()" class="btn btn-circle bg-white text-black">❮</button>
+                            <button onclick="nextSlide()" class="btn btn-circle bg-white text-black">❯</button>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="image/class 12.jpg" class="w-full h-full object-cover" />
+                        <div class="arrow-controls">
+                            <button onclick="prevSlide()" class="btn btn-circle bg-white text-black">❮</button>
+                            <button onclick="nextSlide()" class="btn btn-circle bg-white text-black">❯</button>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="image/class 4.jpg" class="w-full h-full object-cover" />
+                        <div class="arrow-controls">
+                            <button onclick="prevSlide()" class="btn btn-circle bg-white text-black">❮</button>
+                            <button onclick="nextSlide()" class="btn btn-circle bg-white text-black">❯</button>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="image/class 9.jpg" class="w-full h-full object-cover" />
+                        <div class="arrow-controls">
+                            <button onclick="prevSlide()" class="btn btn-circle bg-white text-black">❮</button>
+                            <button onclick="nextSlide()" class="btn btn-circle bg-white text-black">❯</button>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="image/class 10.jpg" class="w-full h-full object-cover" />
+                        <div class="arrow-controls">
+                            <button onclick="prevSlide()" class="btn btn-circle bg-white text-black">❮</button>
+                            <button onclick="nextSlide()" class="btn btn-circle bg-white text-black">❯</button>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="image/class 1.jpg" class="w-full h-full object-cover" />
+                        <div class="arrow-controls">
+                            <button onclick="prevSlide()" class="btn btn-circle bg-white text-black">❮</button>
+                            <button onclick="nextSlide()" class="btn btn-circle bg-white text-black">❯</button>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="image/class 11.jpg" class="w-full h-full object-cover" />
+                        <div class="arrow-controls">
+                            <button onclick="prevSlide()" class="btn btn-circle bg-white text-black">❮</button>
+                            <button onclick="nextSlide()" class="btn btn-circle bg-white text-black">❯</button>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="image/class 14.jpg" class="w-full h-full object-cover" />
+                        <div class="arrow-controls">
+                            <button onclick="prevSlide()" class="btn btn-circle bg-white text-black">❮</button>
+                            <button onclick="nextSlide()" class="btn btn-circle bg-white text-black">❯</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
 
 
-  </main>
+    </main>
 
-  <footer class="text-lg text-center text-red-500"> &copy;Copyright-2025 | <strong class="text-blue-500">Made by
-      MOHAMMAD HOSSAIN TANVIR</strong> | All rights reserved by MIT Solution Ltd.</footer>
+    <footer class="text-lg text-center mt-25 text-red-500"> &copy;Copyright-2025 | <strong class="text-blue-500">Made by
+            MOHAMMAD HOSSAIN TANVIR</strong> | All rights reserved by MIT Solution Ltd.</footer>
 
 
 
@@ -425,7 +541,7 @@
 
 
 
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 
 
 
