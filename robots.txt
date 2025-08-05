@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://mitsolutioncomputertraininginstitute.vercel.app/sitemap.xml
