@@ -1,4 +1,11 @@
 
+// welcome Popup
+function hideWelcome() {
+  document.getElementById('welcomePopup').style.display = 'none';
+}
+
+
+
   // ===== Mobile Menu Toggle =====
   const menuBtn = document.getElementById('menu-btn');
   const mobileMenu = document.getElementById('mobile-menu');

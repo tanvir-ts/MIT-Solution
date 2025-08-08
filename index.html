@@ -77,12 +77,54 @@
             transform: translateY(-50%);
             padding: 0 1rem;
         }
+
+        /* Custom Fade-in Animation */
+        @keyframes fade-in {
+            from { opacity: 0; transform: translateY(20px); }
+             to { opacity: 1; transform: translateY(0); }
+            }
+        .animate-fade-in {
+            animation: fade-in 1s ease-out;
+            }
+
     </style>
 
 
 </head>
 
 <body class="bg-gray-100">
+
+
+
+    <!-- Welcome Popup -->
+    <div id="welcomePopup" class="fixed inset-0 bg-blue-600 text-white flex flex-col items-center justify-center z-[9999] text-center px-4">
+    <div class="max-w-xl animate-fade-in">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4 leading-snug">
+        Welcome to MIT Solution Computer Training Institute Office Websites
+      </h2>
+      <p class="text-lg md:text-xl mb-6 opacity-90">Please visit our website</p>
+  
+      <!-- Animated Button -->
+      <button onclick="hideWelcome()" 
+        class="bg-white text-blue-600 font-semibold px-6 py-3 rounded-lg text-lg 
+        hover:bg-blue-100 hover:text-blue-800 hover:scale-105 hover:-translate-y-1 
+        transition-all duration-300 ease-in-out shadow-md">
+        <a href="https://mitsolutioncomputertraininginstitute.vercel.app/">Visit now</a>
+      </button>
+    </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
     <header class="bg-white shadow-md sticky top-0 z-50">
         <div class="max-w-7xl mx-auto flex items-center justify-between p-4">
 
@@ -137,12 +179,12 @@
                 <!-- Image Section -->
                 <div class="w-full lg:w-1/2">
                     <img id="animatedImage" src="image/mit background less.png"
-                        class="w-[521px] h-[521px] rounded-xl shadow-md opacity-0 translate-x-[-50px] transition-all duration-1000"
+                        class="w-full h-auto rounded-xl shadow-md opacity-0 translate-x-[-50px] transition-all duration-1000"
                         alt="MIT Solution Image" />
                 </div>
 
                 <!-- Text Content -->
-                <div class="w-[521px] h-[521px] flex flex-col items-center justify-center lg:w-1/2">
+                <div class="w-full lg:w-1/2">
                     <h1
                         class="text-2xl sm:text-3xl lg:text-4xl font-[Poppins] font-semibold mb-4 text-center lg:text-left">
                         MIT Solution Computer Training Institute
