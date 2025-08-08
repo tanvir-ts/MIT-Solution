@@ -1,8 +1,22 @@
 
 // welcome Popup
-function hideWelcome() {
-  document.getElementById('welcomePopup').style.display = 'none';
-}
+ // Check session storage — only hide if already visited during this tab session
+ const popupShown = sessionStorage.getItem('mitPopupShown');
+
+ if (!popupShown) {
+   document.getElementById('welcomePopup').classList.remove('hidden');
+ }
+
+ function visitNow() {
+   // Hide popup
+   document.getElementById('welcomePopup').style.display = 'none';
+
+   // Store in sessionStorage → stays only while browser/tab is open
+   sessionStorage.setItem('mitPopupShown', 'true');
+
+   // Redirect to main website
+   window.location.href = "https://mitsolutioncomputertraininginstitute.vercel.app";
+ }
 
 
 
